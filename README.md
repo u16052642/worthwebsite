@@ -1,5 +1,5 @@
-# worthwebsite
-WORTH Cloud Engineer Tech Test
+# WORTH Cloud Engineer Tech Test
+
 Welcome! We need you! Help us deliver a static site based on the source code available
 here 🚀
 You may use any cloud provider of your choosing, however, you must use Terraform to define
