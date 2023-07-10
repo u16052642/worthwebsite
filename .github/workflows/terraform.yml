@@ -27,14 +27,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
-      - name: Terraform Test
-        run: |
-          # Add your testing commands here
-          # Examples:
-          # - Run integration tests against the deployed infrastructure
-          # - Perform configuration validation checks
-          # - Execute other testing scripts or tools
-
       - name: Store Terraform State
         uses: actions/upload-artifact@v2
         with:
