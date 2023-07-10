@@ -1,0 +1,62 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.5.2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
+      - name: Terraform Test
+        run: |
+          # Add your testing commands here
+          # Examples:
+          # - Run integration tests against the deployed infrastructure
+          # - Perform configuration validation checks
+          # - Execute other testing scripts or tools
+
+      - name: Store Terraform State
+        uses: actions/upload-artifact@v2
+        with:
+          name: terraform-state
+          path: .terraform
+
+  destroy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.5.2
+
+      - name: Download Terraform State
+        uses: actions/download-artifact@v2
+        with:
+          name: terraform-state
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
